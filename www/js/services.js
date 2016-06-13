@@ -1,4 +1,4 @@
-angular.module('yourAppsName.services', [])
+angular.module('Chaishen.services', [])
 
 
 .constant('FIREBASE_URL', 'https://stockmarketapp-pre.firebaseio.com/')
@@ -653,5 +653,43 @@ angular.module('yourAppsName.services', [])
     };
   })
 
+
+
+//manages and calls web services - Ibrahim
+.factory('$webServicesFactory', ['$q', '$http', function ($q, $http) {
+    return{
+        get: function (url, headers, params) {
+            var deferred = $q.defer();
+            $http(
+                {
+                    url: url,
+                    method: 'get',
+                    headers: headers,
+                    params: params
+                }
+            ).then(
+                function success(response) {
+
+                    deferred.resolve(response.data);
+                },
+                function error(error) {
+                    console.error(error);
+                    alert(error.data);
+                    deferred.reject(error);
+                }
+            );
+
+
+            return deferred.promise;
+        }//end of get
+    };
+}])//end of web services factory
+//
+//manages global variables among ctrls
+.factory('$globalVarsFactory', [function () {
+  return{
+    
+  };
+}])
 
 ;
