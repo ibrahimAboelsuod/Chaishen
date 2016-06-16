@@ -1,13 +1,19 @@
 <ion-view view-title="Stock Detail">
+
+    <ion-nav-buttons side="right">
+        <button class="button button-balanced ion-plus icon-right" ng-if="!checkWatchState()" ng-click="toggleWatchState()">Follow</button>
+        <button class="button button-assertive ion-minus icon-right" ng-if="checkWatchState()" ng-click="toggleWatchState()">Unfollow</button>
+    </ion-nav-buttons>
+
     <ion-content id="stockDetailContent">
         <div class="list">
             <div class="item">
                 <div class="row">
-                    <div class="col">{{stock.Stock}}</div>
-                    <div class="col" ng-class="{vindexNegative: stock.Vindex<0, vindexPositive: stock.Vindex>=0,}">{{stock.Vindex}}</div><!--Vindex-->
+                    <div class="col col-33">{{stock.Stock}}</div>
+                    <div class="col vindex" ng-class="{infoRed: stock.Change<0, infoGreen: stock.Change>=0,}">{{stock.Vindex}}</div><!--Vindex-->
                     <div class="col">{{stock.Previous_close}}</div>
-                    <div class="col" ng-class="{percentNegative: stock.Change_pc<0, percentPositive: stock.Change_pc>=0,}">
-                        <span ng-if="stock.Change_pc>=0">+</span>{{stock.Change_pc}}%
+                    <div class="col col-33" ng-class="{percentNegative: stock.Change_pc<0, percentPositive: stock.Change_pc>=0,}">
+                        <span ng-if="stock.Change>=0">+</span>{{stock.Change_pc}}%
                         <p>{{stock.Change}}</p>
                     </div><!--percent-->
                 </div>
