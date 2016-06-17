@@ -10,9 +10,9 @@
             <div class="item">
                 <div class="row">
                     <div class="col col-33">{{stock.Stock}}</div>
-                    <div class="col vindex" ng-class="{infoRed: stock.Change<0, infoGreen: stock.Change>=0,}">{{stock.Vindex}}</div><!--Vindex-->
+                    <div class="col vindex" ng-class="{infoRed: stock.Change<0, infoGreen: stock.Change>0, infoOrange: stock.Change==0}">{{stock.Vindex}}</div><!--Vindex-->
                     <div class="col">{{stock.Previous_close}}</div>
-                    <div class="col col-33" ng-class="{percentNegative: stock.Change_pc<0, percentPositive: stock.Change_pc>=0,}">
+                    <div class="col col-33" ng-class="{percentNegative: stock.Change<0, percentPositive: stock.Change>0, percentZero: stock.Change==0}">
                         <span ng-if="stock.Change>=0">+</span>{{stock.Change_pc}}%
                         <p>{{stock.Change}}</p>
                     </div><!--percent-->

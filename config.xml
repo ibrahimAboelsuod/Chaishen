@@ -5,11 +5,10 @@
         A stock market app made with Ionic!
     </description>
     <author email="hunter@lx-labs.com" href="http://lx-labs.com/">
-      Hunter Leaman
+      Hunter Leaman & Ibrahim Aboelsuod
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <access origin="http://192.168.1.110:8080/*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />

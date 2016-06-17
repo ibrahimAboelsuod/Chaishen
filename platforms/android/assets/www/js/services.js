@@ -674,6 +674,9 @@ angular.module('Chaishen.services', [])
                 },
                 function error(error) {
                     console.error(error);
+                  if(error.data == null)
+                      alert("Please check your internet connection!")
+                  else 
                     alert(error.data);
                     deferred.reject(error);
                 }
