@@ -355,8 +355,8 @@ angular.module('Chaishen.controllers', [])
     };
 
     //send stock to detail page
-    $scope.passStockToDetail = function (stockIndex, stockMarket) {
-        $globalVarsFactory.stockIndex = stockIndex;
+    $scope.passStockToDetail = function (stockID, stockMarket) {
+        $globalVarsFactory.stockID = stockID;
         $globalVarsFactory.stockMarket = stockMarket;
     };
 
@@ -417,8 +417,8 @@ angular.module('Chaishen.controllers', [])
         };
 
         //to be edited when the market attribute is added
-        $scope.passSearchStockToDetail = function (stockIndex, stockMarket) {
-            $globalVarsFactory.stockIndex = stockIndex;
+        $scope.passSearchStockToDetail = function (stockID, stockMarket) {
+            $globalVarsFactory.stockID = stockID;
             $globalVarsFactory.stockMarket = stockMarket;
             $scope.searchModal.hide();
         };
@@ -431,20 +431,11 @@ angular.module('Chaishen.controllers', [])
 
 
         $ionicLoading.show();
-        //
-        // /to get the specific row
-        var filterParameters=[
-            {
-                "fieldName": "index",
-                "operator": "equals",
-                "value": $globalVarsFactory.stockIndex
-            }
-        ];
-        //
+
         //get stock data
-        $webServicesFactory.get($stockMarketProvider[$globalVarsFactory.stockMarket].getURL, {AnonymousToken: $stockMarketProvider[$globalVarsFactory.stockMarket].token}, {'filter':filterParameters}).then(
+        $webServicesFactory.get($stockMarketProvider[$globalVarsFactory.stockMarket].getURL+"/"+$globalVarsFactory.stockID+"?exclude=metadata", {AnonymousToken: $stockMarketProvider[$globalVarsFactory.stockMarket].token}, {}).then(
             function success(data) {
-                $scope.stock = data.data[0];
+                $scope.stock = data;
 
                 $ionicLoading.hide();
             },
@@ -479,27 +470,18 @@ angular.module('Chaishen.controllers', [])
 
         $scope.$on("$ionicView.afterEnter", function(event, data) {
 
-            $ionicLoading.show();
             $scope.watchedStocks = [];
 
             //get saved watched stocks
             var tList = $watcherFactory.getWatchList();
             //loop through it to get it from server
             for (var stock in tList) {
+                $ionicLoading.show();
                 if(tList[stock] != null) {
 
-                    // /to get the specific row
-                    var filterParameters = [
-                        {
-                            "fieldName": "index",
-                            "operator": "equals",
-                            "value": tList[stock].index
-                        }
-                    ];
-
-                    $webServicesFactory.get($stockMarketProvider[tList[stock].market].getURL, {AnonymousToken: $stockMarketProvider[tList[stock].market].token}, {'filter': filterParameters}).then(
+                    $webServicesFactory.get($stockMarketProvider[tList[stock].market].getURL+"/"+$globalVarsFactory.stockID+"?exclude=metadata", {AnonymousToken: $stockMarketProvider[tList[stock].market].token}, {}).then(
                         function success(data) {
-                            $scope.watchedStocks.push(data.data[0]);
+                            $scope.watchedStocks.push(data);
                             $ionicLoading.hide();
                         },
                         function error() {
@@ -508,14 +490,16 @@ angular.module('Chaishen.controllers', [])
                     );
 
                 }
+                else
+                    $ionicLoading.hide();
             }//end of for each loop
 
         });
 
         //
         //send stock to detail page
-        $scope.passStockToDetail = function (stockIndex, stockMarket) {
-            $globalVarsFactory.stockIndex = stockIndex;
+        $scope.passStockToDetail = function (stockID, stockMarket) {
+            $globalVarsFactory.stockID = stockID;
             $globalVarsFactory.stockMarket = stockMarket;
         };
 

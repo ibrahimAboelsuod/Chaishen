@@ -40,7 +40,7 @@
             <div class="col"></div>
         </div>
         <div class="list screenerList" ng-show="selectedSearchMarket != '_'">
-            <a class="item" ng-repeat="stock in searchedStocks" ng-click="passSearchStockToDetail(stock.index, selectedSearchMarket)" href="#/app/stockScreenerDetails">
+            <a class="item" ng-repeat="stock in searchedStocks" ng-click="passSearchStockToDetail(stock.id, selectedSearchMarket)" href="#/app/stockScreenerDetails">
                 <div class="row">
                     <div class="col">{{stock.Stock}}</div>
                     <div class="col vindex" ng-class="{infoRed: stock.Change<0, infoGreen: stock.Change>0, infoOrange: stock.Change==0}">{{stock.Vindex}}</div><!--Vindex-->

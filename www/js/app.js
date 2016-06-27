@@ -33,12 +33,12 @@ angular.module('Chaishen', [
     })
     .constant('$stockMarketProvider' , {
         malaysia: {
-            topGetURL: "https://api.backand.com:443/1/objects/KLSEbuysell",
+            topGetURL: "https://api.backand.com:443/1/objects/KLSEbuysell?exclude=metadata",
             getURL: "https://api.backand.com:443/1/objects/KLSE",
             token: "8a9a114f-f851-4a3a-aae6-0aa0119c1acc"
         },
         nasdaq: {
-            topGetURL: "https://api.backand.com:443/1/objects/NASDAQbuysell",
+            topGetURL: "https://api.backand.com:443/1/objects/NASDAQbuysell?exclude=metadata",
             getURL: "https://api.backand.com:443/1/objects/NASDAQ",
             token: "1605dc7b-3afd-44a7-9233-509d4e64925c"
         },
